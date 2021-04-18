@@ -1,0 +1,82 @@
+teste.png
+size: 3111, 1455
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fog1
+  rotate: false
+  xy: 1652, 739
+  size: 777, 715
+  orig: 1024, 1024
+  offset: 79, 140
+  index: -1
+fog2
+  rotate: true
+  xy: 1, 1
+  size: 793, 840
+  orig: 1024, 1024
+  offset: 63, 178
+  index: -1
+fog3
+  rotate: true
+  xy: 843, 1
+  size: 765, 807
+  orig: 1024, 1024
+  offset: 60, 217
+  index: -1
+fog4
+  rotate: true
+  xy: 1652, 1
+  size: 736, 797
+  orig: 1024, 1024
+  offset: 79, 227
+  index: -1
+fog5
+  rotate: false
+  xy: 2451, 1
+  size: 659, 781
+  orig: 1024, 1024
+  offset: 100, 243
+  index: -1
+fog6
+  rotate: true
+  xy: 843, 768
+  size: 662, 748
+  orig: 1024, 1024
+  offset: 64, 276
+  index: -1
+fog7
+  rotate: true
+  xy: 2431, 784
+  size: 592, 603
+  orig: 1024, 1024
+  offset: 94, 421
+  index: -1
+fog8
+  rotate: false
+  xy: 1, 796
+  size: 465, 433
+  orig: 1024, 1024
+  offset: 113, 591
+  index: -1
+fog9
+  rotate: false
+  xy: 468, 796
+  size: 140, 156
+  orig: 1024, 1024
+  offset: 314, 834
+  index: -1
+fog10
+  rotate: true
+  xy: 468, 954
+  size: 121, 84
+  orig: 1024, 1024
+  offset: 375, 894
+  index: -1
+fog11
+  rotate: false
+  xy: 2431, 739
+  size: 3, 3
+  orig: 1024, 1024
+  offset: 0, 1021
+  index: -1

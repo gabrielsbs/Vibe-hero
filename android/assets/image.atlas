@@ -1,0 +1,20 @@
+
+image.png
+size: 2048,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+key
+  rotate: false
+  xy: 553, 95
+  size: 559, 286
+  orig: 559, 286
+  offset: 0, 0
+  index: -1
+nota
+  rotate: false
+  xy: 0, 0
+  size: 553, 381
+  orig: 553, 381
+  offset: 0, 0
+  index: -1

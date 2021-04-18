@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:background="#000000">
+
+
+    <LinearLayout
+        android:id="@+id/linearView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/microphone"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:background="@mipmap/micro_icon"
+            android:contentDescription="TODO"
+
+            tools:ignore="VectorDrawableCompat" />
+
+        <include layout="@layout/editor_view" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/linearView"
+        android:layout_alignParentRight="true"
+        android:background="#f1fc20"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="5dp"
+        android:text="Enviar"
+        android:textColor="#000" />
+</RelativeLayout>

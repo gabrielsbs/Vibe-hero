@@ -1,0 +1,159 @@
+botoes.png
+size: 1792, 3882
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+botao1
+  rotate: false
+  xy: 1, 1
+  size: 559, 286
+  orig: 559, 286
+  offset: 0, 18
+  index: -1
+botao2
+  rotate: false
+  xy: 562, 1
+  size: 553, 381
+  orig: 553, 381
+  offset: 28, 64
+  index: -1
+botaoAlfa
+  rotate: false
+  xy: 1117, 1
+  size: 2893, 2893
+  orig: 2893, 2893
+  offset: 64, 54
+  index: -1
+botaoIniciar
+  rotate: false
+  xy: 4012, 1
+  size: 2893, 2893
+  orig: 2893, 2893
+  offset: 233, 297
+  index: -1
+botaoNum
+  rotate: false
+  xy: 1, 2896
+  size: 2893, 2893
+  orig: 1447, 1447
+  offset: 64, 54
+  index: -1
+botaoRestart
+  rotate: false
+  xy: 2896, 2896
+  size: 2893, 2893
+  orig: 1447, 1447
+  offset: 183, 209
+  index: -1
+botaoScore
+  rotate: false
+  xy: 6907, 1
+  size: 2893, 2893
+  orig: 2893, 2893
+  offset: 28, 116
+  index: -1
+botaoSym
+  rotate: false
+  xy: 5791, 2896
+  size: 2893, 2893
+  orig: 2893, 2893
+  offset: 64, 54
+  index: -1
+botaoVel
+  rotate: false
+  xy: 1, 5791
+  size: 2893, 2893
+  orig: 2893, 2893
+  offset: 64, 54
+  index: -1
+coin1IMG
+  rotate: false
+  xy: 9802, 363
+  size: 800, 800
+  orig: 800, 800
+  offset: 155, 149
+  index: -1
+coin2IMG
+  rotate: false
+  xy: 1, 1165
+  size: 800, 800
+  orig: 800, 800
+  offset: 155, 149
+  index: -1
+coin3IMG
+  rotate: false
+  xy: 9802, 1165
+  size: 800, 800
+  orig: 800, 800
+  offset: 155, 149
+  index: -1
+fog1
+  rotate: false
+  xy: 1, 363
+  size: 100, 105
+  orig: 100, 105
+  offset: 79, 140
+  index: -1
+fog2
+  rotate: false
+  xy: 205, 363
+  size: 100, 100
+  orig: 100, 100
+  offset: 63, 178
+  index: -1
+fog3
+  rotate: false
+  xy: 307, 363
+  size: 100, 100
+  orig: 100, 100
+  offset: 60, 217
+  index: -1
+fog4
+  rotate: false
+  xy: 409, 363
+  size: 100, 100
+  orig: 100, 100
+  offset: 79, 227
+  index: -1
+fog5
+  rotate: false
+  xy: 10604, 363
+  size: 100, 100
+  orig: 100, 100
+  offset: 100, 243
+  index: -1
+fog6
+  rotate: false
+  xy: 103, 465
+  size: 100, 100
+  orig: 100, 100
+  offset: 64, 276
+  index: -1
+fog7
+  rotate: false
+  xy: 205, 465
+  size: 100, 100
+  orig: 100, 100
+  offset: 94, 421
+  index: -1
+fog8
+  rotate: false
+  xy: 307, 465
+  size: 100, 100
+  orig: 100, 100
+  offset: 113, 591
+  index: -1
+fog9
+  rotate: false
+  xy: 409, 465
+  size: 100, 100
+  orig: 100, 100
+  offset: 314, 834
+  index: -1
+fog10
+  rotate: false
+  xy: 103, 363
+  size: 100, 100
+  orig: 100, 100
+  offset: 375, 894
+  index: -1
