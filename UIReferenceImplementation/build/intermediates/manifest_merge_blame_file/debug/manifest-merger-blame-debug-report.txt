@@ -6,8 +6,8 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->C:\Users\gsbdo\Desktop\VibeHero\UIReferenceImplementation\src\main\AndroidManifest.xml
+8-->D:\Documents\Projetos\VibeHero\UIReferenceImplementation\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->C:\Users\gsbdo\Desktop\VibeHero\UIReferenceImplementation\src\main\AndroidManifest.xml
+9-->D:\Documents\Projetos\VibeHero\UIReferenceImplementation\src\main\AndroidManifest.xml
 10
 11</manifest>

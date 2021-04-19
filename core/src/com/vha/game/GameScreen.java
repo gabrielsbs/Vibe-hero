@@ -1,7 +1,8 @@
-
 package com.vha.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -38,18 +41,31 @@ public class GameScreen implements Screen {
     //Objetos
     private Key key;
     private LinkedList<Nota> notaList;
+    //private LinkedList<Nota> notaList2;
 
     //key indice
-    int indice;
+    int indice, indice2;
     private int score = 0;
-    private String points = "Pontos = 0";
-    BitmapFont teste = new BitmapFont();
+    private String points = "0";
+    //BitmapFont teste = new BitmapFont();
+    private FreeTypeFontGenerator fontGenerator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameterScore, fontParameterNum;
+    private BitmapFont fontScore;
+
+    public void create(){
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("reg.ttf"));
+        fontParameterScore = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameterScore.size = 100;
+        fontParameterScore.color = Color.BLUE.CYAN;
+        fontScore = fontGenerator.generateFont(fontParameterScore);
+    }
 
     public GameScreen(VibeHero game) {
         this.game = game;
         camera = new OrthographicCamera();
         viewport = new StretchViewport(VibeHero.WIDTH, VibeHero.HEIGHT, camera);
 
+        create();
         //Instancia as texturas do atlas
         textureAtlas = new TextureAtlas("image.atlas");
 
@@ -59,17 +75,18 @@ public class GameScreen implements Screen {
 
         //Abre o arquivo de etapa e seta o indice
         indice = 0; //readFile();
+        indice2 = 5;
 
         double fator = 1.35;
         key = new Key(125 + 70, 65 + 15, 118 * fator, 59 * fator, textureAtlas);
 
         //CRIAR FLAG EM TIMEBETWEENNOTAS PRA OU VIR 1, 2 OU 3 (IMPLEMENTAÇÃO DPS) OU VIR UMA SÓ
         notaList = new LinkedList<Nota>();
+
         notaList.add(new Nota((float) ((VibeHero.WIDTH / 2) - (5 * 50 * fator)), (float) (VibeHero.HEIGHT / 2 + 120 / (2.75)),
                 (float) (50 * fator), (float) (25 * fator),
                 140, textureAtlas,
                 800, indice));
-
         batch = new SpriteBatch();
     }
 
@@ -119,10 +136,7 @@ public class GameScreen implements Screen {
         key.draw(batch);
         key.update(batch, deltaTime);
 
-        teste.setColor(1.0f, 1.0f, 0f, 1.0f);
-        teste.draw(batch, points, 1500, 900);
-        teste.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        teste.getData().setScale(6f);
+        fontScore.draw(batch, points, 1800,1000);
 
         ListIterator<Nota> notaListIterator = notaList.listIterator();
         while (notaListIterator.hasNext()) {
@@ -130,6 +144,7 @@ public class GameScreen implements Screen {
             nota.update(deltaTime);
             nota.draw(batch);
         }
+
         collision();
 
         batch.end();
@@ -139,7 +154,6 @@ public class GameScreen implements Screen {
     private boolean detectInput() {
         //Detecta toque na tela - em desenvolvimento
         touchPress();
-
         //Verifica se os vetores de Key e Nota são iguais. Isto é, detecta se o impulso colocado em
         //Nota é igual ao obtido pelo pressionamento das teclas.
         //Ex: É setado o valor de [5, 0, 0] em Key
@@ -147,8 +161,8 @@ public class GameScreen implements Screen {
     }
 
     private void touchPress() {
-        key.setIndice(indice);
-        key.touchPress(indice);
+        key.setIndice(indice, indice2);
+        key.touchPress(indice,indice2);
     }
 
     private String convertNotaSetToString(Integer[] notaSet) {
@@ -181,10 +195,14 @@ public class GameScreen implements Screen {
             Nota nota = iterator.next();
             System.out.println(Arrays.toString(nota.getNota()) + " " + Arrays.toString(key.getKey()) + " " +
                     key.intersects(nota.getHitbox()));
-            if (nota.getNota()[1] > 7) {
-                System.out.println(nota.hitbox2 + " " + key.getSpriteHitbox());
-            }
-            if (key.intersects(nota.getHitbox()) && detectInput()) {
+            System.out.println(Arrays.toString(nota.getNota()) + " " + Arrays.toString(key.getKey()) + " " +
+                    key.intersects2(nota.getHitbox()));
+            Integer[] s = nota.getNota();
+            Integer[] a = {1, 0, 0};
+            Integer[] b = {0, 6, 0};
+            System.out.println(Arrays.toString(s));
+
+            if (key.intersects(nota.getHitbox()) && detectInput()) { //&& key.intersects2(nota2.getHitbox2()) && detectInput2()) {
                 //TEMPORÁRIO
                 if (indice < 9) {
                     key.hit(nota);
@@ -197,13 +215,11 @@ public class GameScreen implements Screen {
                     indice = 0;
                 }
                 score++;
-                points = "Pontos: " + score;
-                System.out.println(score);
-                game.openResponseView(convertNotaSetToString(notaList.getLast().getNota()));
+                points = "" + score;
+                // game.openResponseView(convertNotaSetToString(notaList.getLast().getNota()));
                 spawnNotas(indice, true);
                 notaList.remove();
                 nota.setIndice(indice);
-                //writeFile(indice);
             }
         }
     }

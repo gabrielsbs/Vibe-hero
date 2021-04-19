@@ -26,6 +26,7 @@ public class Nota {
     private float timeSinceLastNota;
     Code code;
     int indice;
+    int indice2;
 
     //Design
     TextureAtlas textureAtlas;
@@ -35,13 +36,15 @@ public class Nota {
     //Criar uma classe para fases, armazenar animações lá
     private class Fase {
         // Construtor deve abrir o arquivo
-        int fase, indice;
+        int fase, indice, indice2;
         private LinkedList<TextureRegion> fase1 = new LinkedList<>();
+        private LinkedList<TextureRegion> fase21 = new LinkedList<>();
+        private LinkedList<TextureRegion> fase22 = new LinkedList<>();
         private TextureAtlas fase1Atlas = new TextureAtlas("numeros.atlas");
+        private TextureAtlas fase2Atlas = new TextureAtlas("alfa.atlas");
 
         public Fase() {
             // Abrir arquivo
-            fase = 1;
             fase1();
         }
 
@@ -51,13 +54,41 @@ public class Nota {
             }
             fase1.add(fase1Atlas.findRegion("0"));
         }
+        int cont = 1;
+        //foi necessário dividir a fase 2 em duas partes: uma pra nota que vai do indice 0 ao 4 e
+        //outra que vai do indice de 5 a 9
+        public void fase21() {
+            while(cont <= 5) {
+                Integer i = 1;
+                //for (i = 1; i < 2; i++) {
+                    fase21.add(fase1Atlas.findRegion(i.toString()));
+                //}
+                cont ++;
+                //i = 1;
+            }
+            //fase21.add(fase1Atlas.findRegion("0"));
+        }
+        public void fase22() {
+            for (Integer i = 6; i < 10; i++) {
+                fase22.add(fase1Atlas.findRegion(i.toString()));
+            }
+            fase22.add(fase1Atlas.findRegion("5"));
+        }
+
 
         public void draw (Batch batch) {
             System.out.println(this.indice + " " + fase1.size());
             batch.draw(fase1.get(this.indice), 80, 900, 70, 70);
         }
 
+        public void draw2 (Batch batch) {
+            System.out.println(this.indice + " " + fase21.size() + " " + this.indice2 + " " + fase22.size());
+            batch.draw(fase21.get(this.indice), 80, 900, 70, 70);
+            batch.draw(fase22.get(this.indice2), 80, 900, 70, 70);
+        }
+
         public void setIndice(int indice) { this.indice = indice; }
+        public void setIndice2(int indice2) { this.indice2 = indice2; }
 
         public int getFase() {
             return fase;
@@ -75,7 +106,7 @@ public class Nota {
         this.indice = indice;
         //seta a fase em code - em desenvolvimento
         code = new Code(fase.getFase(), indice);
-        this.notaSet = code.getLista();
+        this.notaSet = code.getLista(); //getLista1()
         //Definições da nota 1 - dividido em dois por problemas com o envio de notas duplas - modificar com o uso de lista para notas
         // posteriormente, englobando o timeBetweenNotas que deve ter uma condição específica para jogar notas duplas ou não
         this.hitbox = new Rectangle(xCentre - (width / 2) - (30 * notaSet[0]), yPosition, width, height);
@@ -125,7 +156,7 @@ public class Nota {
         //Números experimentais
 
         double[] factor;
-        path += 1.46;
+        path += 2;
         float noteSpace = (float) (0.23 / 9);
         int WORLD_WIDTH = VibeHero.WIDTH;
         double fator = 1.35;
@@ -144,7 +175,7 @@ public class Nota {
                 hitbox.x = (float) factor[notaSet[0] - 1];
             }
             if (getNota()[1] != null && getNota()[1] != 0) {
-                hitbox2.x = (float) factor[notaSet[1] - 1] + 50;
+                hitbox2.x = (float) factor[notaSet[1] - 1];
             }
         }
 
@@ -153,40 +184,62 @@ public class Nota {
         hitbox2.set(hitbox2.x, hitbox.y, hitbox.width, hitbox.height);
         timeSinceLastNota += deltaTime;
         code.setIndiceList(indice);
-        notaSet = code.getLista();
+        notaSet = code.getLista(); //getLista()
         fase.setIndice(indice);
+        fase.setIndice2(indice2);
     }
 
     //Efetivamente desenha as notas, com mais detalhamento. É atualizado por update e atualiza o design da nota
     public void throwNota(Batch batch) {
-        if (notaSet[0] == 1) {
+        if (notaSet[0] == 1 && notaSet[1] == 0) {
             batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[0] == 2) {
+        if (notaSet[0] == 2 && notaSet[1] == 0) {
             batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[0] == 3) {
+        if (notaSet[0] == 3 && notaSet[1] == 0) {
             batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[0] == 4) {
+        if (notaSet[0] == 4 && notaSet[1] == 0) {
             batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[0] == 5) {
+        if (notaSet[0] == 5 && notaSet[1] == 0) {
             batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[1] == 6) {
+        if (notaSet[1] == 6 && notaSet[0] == 0) {
             batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[1] == 7) {
+        if (notaSet[1] == 7 && notaSet[0] == 0) {
             batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[1] == 8) {
+        if (notaSet[1] == 8 && notaSet[0] == 0) {
             batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[1] == 9) {
+        if (notaSet[1] == 9 && notaSet[0] == 0) {
             batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
         }
-        if (notaSet[1] == 10) {
+        if (notaSet[1] == 10 && notaSet[0] == 0) {
+            batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
+        }
+        //novo
+        if (notaSet[0] == 1 && notaSet[1] == 6){
+            batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
+            batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
+        }
+        if (notaSet[0] == 1 && notaSet[1] == 7){
+            batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
+            batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
+        }
+        if (notaSet[0] == 1 && notaSet[1] == 8){
+            batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
+            batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
+        }
+        if (notaSet[0] == 1 && notaSet[1] == 9){
+            batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
+            batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
+        }
+        if (notaSet[0] == 1 && notaSet[1] == 10){
+            batch.draw(textureRegion, (hitbox.x), hitbox.y, hitbox.width, hitbox.height);
             batch.draw(textureRegion, (hitbox2.x), hitbox.y, hitbox.width, hitbox.height);
         }
     }
@@ -216,6 +269,9 @@ public class Nota {
             return new Rectangle(hitbox2.x, hitbox2.y, hitbox.width, hitbox.height);
         }
 
+    public Rectangle getHitbox2() {
+        return new Rectangle(hitbox2.x, hitbox.y, hitbox.width, hitbox.height);//hitbox2.y
+    }
     //Seta um array de inteiros com a nota (Ex: [5, 0, 0])
     public void setNota(Integer[] notaSet) {
         //Teste com a posição inicial
@@ -228,6 +284,10 @@ public class Nota {
 
     public void setIndice(int indice) {
         this.indice = indice;
+    }
+
+    public void setIndice2(int indice2) {
+        this.indice2 = indice2;
     }
 
     public Integer[] getNota() {

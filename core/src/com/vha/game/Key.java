@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
@@ -27,9 +28,9 @@ public class  Key extends Game implements InputProcessor {
     //Características de Key
     private float movementSpeed = 0;
     private Code code;
-    private Integer[] key = new Integer[3];
+    private Integer[] key = new Integer[3]; //tem a ver com a fase an
     private boolean keyboard_flag = false; //SETA SE É COM TECLADO OU TOUCH
-    private int indice;
+    private int indice, indice2;
     private boolean score_flag = false;
     private int score;
 
@@ -44,6 +45,12 @@ public class  Key extends Game implements InputProcessor {
     private Array<Sprite> keySprites;
     private SpriteBatch batch;
     private Vector3 touchPoint;
+    private Vector3 touchPoint2;
+    //novo
+    private Vector3 touchLeft;
+    private Vector3 touchRight;
+
+    private String message = "";
 
     // MultiTouch
     private class TouchInfo {
@@ -73,6 +80,10 @@ public class  Key extends Game implements InputProcessor {
         score = 0;
 
         batch = new SpriteBatch();
+
+        //novo
+        touchLeft = new Vector3(-1, -1, 0);
+        touchRight = new Vector3(-1, -1, 0);
     }
 
     private class HitAnimation {
@@ -98,6 +109,7 @@ public class  Key extends Game implements InputProcessor {
 
         public void update (float deltaTime) {
             fireAnimTimer += deltaTime;
+
         }
 
         public void draw (SpriteBatch batch) {
@@ -135,19 +147,22 @@ public class  Key extends Game implements InputProcessor {
         Gdx.input.setInputProcessor(this);
 
         // Loop dos toques
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {//i < 10
             touches.put(i, new TouchInfo());
         }
 
         touchPoint = new Vector3(0, 0, 0);
+
 
     }
 
     @Override
     public void render() {
         indice = code.getIndice();
+        indice2 = code.getIndice() + 5;
         super.render();
         camera.update();
+
     }
 
 
@@ -172,21 +187,17 @@ public class  Key extends Game implements InputProcessor {
     //Função responsável por pegar toques simultâneos
     private void multiTouch() {
         Boolean flagPoint = Boolean.FALSE;
-
         if (touches.get(0).touched) {
             testeSpritesTocadas(touchPoint);
         }
-        /* A ser desenvolvido
-        if (touches.get(1).touched) {
-            testeSpritesTocadas(touchPoint);
-        }
-        if (touches.get(2).touched) {
-            testeSpritesTocadas(touchPoint);
-        }*/
     }
 
     public Rectangle getSpriteHitbox() {
         return keySprites.get(indice).getBoundingRectangle();
+    }
+
+    public Rectangle getSpriteHitbox2() {
+        return keySprites.get(indice2).getBoundingRectangle();
     }
 
     private void testeSpritesTocadas(Vector3 touchPoint) {
@@ -199,13 +210,11 @@ public class  Key extends Game implements InputProcessor {
             if (keySprites.get(i).getBoundingRectangle().contains(touchPoint.x - 50, (float) (touchPoint.y / 9))) {
                 if (i < 5) {
                     key[0] = i + 1;
-
                     //if(!segundoToque)
                     key[1] = 0;
                     key[2] = 0;
                 } else if (i >= 5) {
                     key[1] = i + 1;
-
                     //segundotoque
                     key[0] = 0;
                     key[2] = 0;
@@ -218,7 +227,7 @@ public class  Key extends Game implements InputProcessor {
     public void hit (Nota nota) {
         score_flag = true;
         score += 1;
-        setIndice(indice + 1);
+        setIndice(indice + 1, indice2 + 1);
         // animação
         hitAnim.add(new HitAnimation());
     }
@@ -229,6 +238,12 @@ public class  Key extends Game implements InputProcessor {
         int fatorCorrecao = 0, x = (int) hitbox.x;
         hitbox.x = x + fatorCorrecao;
         return keySprites.get(indice).getBoundingRectangle().overlaps(hitbox);
+    }
+
+    public boolean intersects2(Rectangle hitbox) {
+        int fatorCorrecao = 0, x = (int) hitbox.x;
+        hitbox.x = x + fatorCorrecao;
+        return keySprites.get(indice2).getBoundingRectangle().overlaps(hitbox);
     }
 
     //Detecta teclas do teclado apertadas
@@ -286,7 +301,7 @@ public class  Key extends Game implements InputProcessor {
         return press;
     }
 
-    public void touchPress(int indice) {
+    public void touchPress(int indice, int indice2) {
         Gdx.input.setInputProcessor(this);
     }
 
@@ -296,8 +311,9 @@ public class  Key extends Game implements InputProcessor {
         return key;
     }
 
-    public void setIndice(int indice) {
+    public void setIndice(int indice, int indice2) {
         this.indice = indice;
+        this.indice2 = indice2;
     }
 
     public int getIndice(int indice) { return indice; }
@@ -316,6 +332,8 @@ public class  Key extends Game implements InputProcessor {
             touches.get(pointer).touched = true;
 
             touchPoint = new Vector3(screenX, screenY, 0);
+            touchRight = new Vector3(screenX, screenY, 0);
+            touchLeft = new Vector3(screenX, screenY, 0);
             inicializaKeys();
             multiTouch();
         }

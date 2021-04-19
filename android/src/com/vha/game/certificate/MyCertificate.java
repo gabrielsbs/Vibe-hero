@@ -1,4 +1,4 @@
-package com.vha.game.certificate;
+package  com.vha.game.certificate;
 
 /**
  * The <code>MyCertificate</code> class provides the bytes of the user
